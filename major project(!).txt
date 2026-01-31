@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaceMate AI | Full Career Suite</title>
+    
+    <!-- Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #0a66c2;        /* LinkedIn Blue */
+            --primary-hover: #004182;
+            --primary-light: #eef3f8;
+            --bg-body: #f3f2ef;
+            --white: #ffffff;
+            --text-main: #191919;
+            --text-light: #666666;
+            --border: #e0e0e0;
+            --success: #057642;
+            --warning: #d97706;
+            --danger: #c53030;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        button { font-family: inherit; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: var(--white);
+            height: 72px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+        .logo i { background: var(--primary-light); padding: 8px; border-radius: 8px; }
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        
+        .nav-item {
+            color: var(--text-light);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-item:hover::after, .nav-item.active::after { width: 100%; }
+        .nav-item:hover, .nav-item.active { color: var(--text-main); }
+
+        /* --- BUTTONS --- */
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 24px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(10, 102, 194, 0.2);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(10, 102, 194, 0.3); }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 28px;
+            border-radius: 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        .btn-outline:hover { background: var(--primary-light); }
+
+        /* --- PAGE LAYOUT --- */
+        .page-section {
+            display: none;
+            padding: 60px 20px;
+            animation: fadeIn 0.4s ease-out;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- WELCOME PAGE --- */
+        .welcome-hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+        }
+
+        .welcome-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .welcome-hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- CARDS & CONTAINERS --- */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .card:hover { box-shadow: var(--shadow-md); border-color: #cbd5e1; }
+
+        .tool-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            max-width: 900px; 
+            margin: 0 auto;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        /* --- FORMS --- */
+        .form-header { background: #f8fafc; padding: 30px; text-align: center; border-bottom: 1px solid var(--border); }
+        .form-header h2 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-main); }
+        .form-body { padding: 40px; }
+        
+        .input-group { margin-bottom: 24px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-main); font-size: 0.95rem; }
+        .input-group small { color: var(--text-light); font-size: 0.8rem; display: block; margin-top: 5px; }
+        
+        .input-field, select.input-field {
+            width: 100%; padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--text-main);
+        }
+        .input-field:focus, select.input-field:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.1); }
+
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+        
+        h4.form-section-title { margin: 30px 0 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; font-size: 1.2rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+
+        /* --- PROGRESS CIRCLES --- */
+        .progress-circle-wrapper {
+            position: relative; width: 160px; height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0deg, #e2e8f0 0deg);
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 30px; transition: background 1.5s ease-out;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .progress-circle-wrapper::before {
+            content: ''; position: absolute; width: 140px; height: 140px;
+            background: var(--white); border-radius: 50%;
+        }
+        .score-value { position: relative; font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
+        .score-label { position: absolute; bottom: 40px; font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* --- SKILL BARS --- */
+        .skill-bars { margin-top: 30px; text-align: left; }
+        .bar-container { margin-bottom: 20px; }
+        .bar-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; color: var(--text-main); }
+        .progress-bg { height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; border-radius: 4px; transition: width 1.5s ease; }
+
+        /* --- RESUME PAGE --- */
+        .resume-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; }
+        
+        .upload-zone { border: 2px dashed #cbd5e1; background: #f8fafc; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 250px; cursor: pointer; transition: var(--transition); text-align: center; color: var(--text-light); position: relative; }
+        .upload-zone:hover { background: #eff6ff; border-color: var(--primary); }
+        .upload-zone i { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+        
+        /* Issue Cards */
+        .issue-card {
+            background: #fff; border: 1px solid #e2e8f0;
+            border-radius: 8px; padding: 15px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 4px solid #ccc;
+        }
+        .issue-card.critical { border-left-color: var(--danger); background: #fff5f5; }
+        .issue-card.warning { border-left-color: var(--warning); }
+        
+        .fix-btn { font-size: 0.8rem; padding: 4px 10px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+        /* --- ROADMAP / STRATEGY --- */
+        .strategy-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+
+        .strategy-item {
+            background: white; padding: 20px; border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;
+        }
+        .strategy-item h4 { color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .strategy-list li { margin-bottom: 8px; font-size: 0.9rem; padding-left: 20px; position: relative; color: var(--text-main); }
+        .strategy-list li::before { content: '•'; color: var(--primary); font-weight: bold; position: absolute; left: 0; }
+
+        /* Action Items */
+        .action-item {
+            display: flex; gap: 15px; padding: 15px; background: white; border-radius: 8px; align-items: flex-start;
+            border:1px solid #e2e8f0; margin-bottom: 10px; transition: var(--transition);
+        }
+        .action-item:hover { transform: translateX(5px); border-color: var(--primary); }
+        .checkbox-custom { width: 22px; height: 22px; cursor: pointer; accent-color: var(--primary); margin-top: 2px; }
+
+        /* --- TIMELINE --- */
+        .timeline { border-left: 2px solid #e2e8f0; margin-left: 10px; padding-left: 20px; }
+        .timeline-item { position: relative; margin-bottom: 25px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -26px; top: 5px;
+            width: 10px; height: 10px; background: var(--primary); border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 2px var(--primary);
+        }
+        .update-card { background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .timeline-date { font-size: 0.8rem; color: var(--text-light); margin-bottom: 5px; font-weight: 600; }
+
+        /* --- TOAST --- */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: #1e293b; color: white; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; display: flex; align-items: center; gap: 12px; animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .toast i { color: var(--success); font-size: 1.1rem; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* --- FOOTER --- */
+        footer { background: var(--white); border-top: 1px solid var(--border); padding: 40px 20px; margin-top: 60px; text-align: center; }
+        .footer-grid { max-width: 1128px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
+        .social-links a { font-size: 1.2rem; color: var(--text-light); margin-right: 15px; transition: var(--transition); }
+        .social-links a:hover { color: var(--primary); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .resume-grid, .strategy-grid { grid-template-columns: 1fr; }
+            .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+            .welcome-hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="switchPage('welcome')">
+                <i class="fa-solid fa-brain"></i> PlaceMate
+            </div>
+            <div class="nav-links">
+                <span class="nav-item" onclick="switchPage('welcome')">Home</span>
+                <span class="nav-item" onclick="switchPage('predict')">Predict</span>
+                <span class="nav-item" onclick="switchPage('resume')">Resume</span>
+                <span class="nav-item" onclick="switchPage('roadmap')">Roadmap</span>
+                <span class="nav-item" onclick="switchPage('about')">About</span>
+            </div>
+            <button class="btn-primary" onclick="switchPage('predict')">Predict Now</button>
+        </div>
+    </nav>
+
+    <!-- PAGE 0: WELCOME PAGE -->
+    <section id="welcome" class="page-section active">
+        <div class="welcome-hero">
+            <h1>Welcome to PlaceMate AI</h1>
+            <p>The ultimate AI-powered career suite for students. Predict your placement chances, optimize your resume for ATS, and track your journey to your dream job.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-primary" onclick="switchPage('predict')">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Start Prediction
+                </button>
+                <button class="btn-outline" onclick="switchPage('resume')">
+                    <i class="fa-solid fa-file-invoice"></i> Check Resume
+                </button>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">Why Use PlaceMate?</h2>
+        
+        <div class="features-grid">
+            <div class="card" style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fa-solid fa-chart-pie" style="font-size: 1.5rem; color: var(--primary);"></i>
+                </div>
+                <h3>Smart Prediction</h3>
+                <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 10px;">
+                    Analyze your CGPA, skills, and internships to get a realistic probability of landing a job.
+                </p>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: #fff1f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fa-solid fa-file-pen" style="font-size: 1.5rem; color: var(--danger);"></i>
+                </div>
+                <h3>ATS Resume Check</h3>
+                <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 10px;">
+                    Don't get rejected by bots. We scan your resume for keywords and formatting issues.
+                </p>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fa-solid fa-route" style="font-size: 1.5rem; color: var(--success);"></i>
+                </div>
+                <h3>Personal Roadmap</h3>
+                <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 10px;">
+                    Get a customized learning path based on your target role and log your daily progress.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 2: DETAILED PREDICTION TOOL -->
+    <section id="predict" class="page-section">
+        <div class="tool-card">
+            <div class="form-header">
+                <h2><i class="fa-solid fa-calculator"></i> Advanced Placement Predictor</h2>
+                <p style="color: var(--text-light); font-size: 0.95rem;">Enter your detailed academic and professional profile for accurate analysis.</p>
+            </div>
+            
+            <form id="predictionForm" class="form-body" onsubmit="calculatePrediction(event)">
+                <!-- Personal Info -->
+                <h4 class="form-section-title"><i class="fa-solid fa-user"></i> Personal Information</h4>
+                <div class="form-grid-2">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" class="input-field" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Department / Major</label>
+                        <select class="input-field" id="dept" required>
+                            <option value="" disabled selected>Select Department</option>
+                            <optgroup label="Computer Science & IT">
+                                <option value="cse_gen">Computer Science (General)</option>
+                                <option value="cse_ai">CSE (Artificial Intelligence)</option>
+                                <option value="cse_ml">CSE (Machine Learning)</option>
+                                <option value="cse_ds">CSE (Data Science)</option>
+                                <option value="cse_cyber">CSE (Cyber Security)</option>
+                                <option value="it">Information Technology</option>
+                                <option value="ise">Information Science & Engineering</option>
+                            </optgroup>
+                            <optgroup label="Electronics & Electrical">
+                                <option value="ece">Electronics & Comm. (ECE)</option>
+                                <option value="eee">Electrical & Electronics (EEE)</option>
+                                <option value="eie">Electronics & Instrumentation</option>
+                            </optgroup>
+                            <optgroup label="Core Engineering">
+                                <option value="mech">Mechanical Engineering</option>
+                                <option value="civil">Civil Engineering</option>
+                                <option value="chem">Chemical Engineering</option>
+                            </optgroup>
+                            <optgroup label="Others">
+                                <option value="other">Other (Biotech, Aerospace, etc.)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Academic Section -->
+                <h4 class="form-section-title"><i class="fa-solid fa-graduation-cap"></i> Academic Performance</h4>
+                <div class="form-grid-2">
+                    <div class="input-group">
+                        <label>Current CGPA (0-10)</label>
+                        <input type="number" id="cgpa" class="input-field" step="0.01" min="0" max="10" placeholder="8.50" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Active Backlogs (Arrears)</label>
+                        <input type="number" id="backlogs" class="input-field" min="0" placeholder="0" required>
+                        <small style="color: var(--danger);">* Active backlogs significantly impact probability</small>
+                    </div>
+                </div>
+
+                <!-- Technical Section -->
+                <h4 class="form-section-title"><i class="fa-solid fa-laptop-code"></i> Technical Skills</h4>
+                <div class="form-grid-3">
+                    <div class="input-group">
+                        <label>Primary Skill Stack</label>
+                        <select class="input-field" id="skill" required>
+                            <option value="" disabled selected>Select Top Skill</option>
+                            <optgroup label="Web Development">
+                                <option value="mern">MERN Stack (MongoDB, Express, React, Node)</option>
+                                <option value="mean">MEAN Stack</option>
+                                <option value="react">React.js Specialist</option>
+                                <option value="angular">Angular.js Specialist</option>
+                                <option value="vue">Vue.js Specialist</option>
+                                <option value="php_laravel">PHP / Laravel</option>
+                            </optgroup>
+                            <optgroup label="Backend & Systems">
+                                <option value="java_spring">Java (Spring Boot)</option>
+                                <option value="python_django">Python (Django/Flask)</option>
+                                <option value="golang">Golang</option>
+                                <option value="dotnet">.NET / C#</option>
+                            </optgroup>
+                            <optgroup label="Data & AI">
+                                <option value="data_science">Data Science (Python/Pandas)</option>
+                                <option value="ml_engineer">Machine Learning Engineering</option>
+                                <option value="data_analysis">Data Analysis (SQL/Tableau)</option>
+                                <option value="bigdata">Big Data (Hadoop/Spark)</option>
+                            </optgroup>
+                            <optgroup label="Cloud & DevOps">
+                                <option value="aws">Amazon Web Services (AWS)</option>
+                                <option value="azure">Microsoft Azure</option>
+                                <option value="devops">DevOps (Docker/Kubernetes/Jenkins)</option>
+                                <option value="sre">Site Reliability Engineering</option>
+                            </optgroup>
+                            <optgroup label="Cyber Security & Testing">
+                                <option value="cyber_sec">Cyber Security</option>
+                                <option value="qa_testing">Manual & Automation Testing</option>
+                                <option value="blockchain">Blockchain Development</option>
+                            </optgroup>
+                            <optgroup label="Mobile">
+                                <option value="flutter">Flutter (Cross Platform)</option>
+                                <option value="android">Android Native (Kotlin)</option>
+                                <option value="ios">iOS Native (Swift)</option>
+                            </optgroup>
+                            <optgroup label="Core Engineering">
+                                <option value="cad_design">CAD/CAM Design (AutoCAD/SolidWorks)</option>
+                                <option value="embedded">Embedded Systems</option>
+                                <option value="vlsi">VLSI Design</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Aptitude Score (Self-Rated 0-100)</label>
+                        <input type="number" id="aptitude" class="input-field" min="0" max="100" placeholder="75" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Total Projects Completed</label>
+                        <input type="number" id="projects" class="input-field" min="0" placeholder="e.g. 3" required>
+                    </div>
+                </div>
+
+                <!-- Internship Section -->
+                <h4 class="form-section-title"><i class="fa-solid fa-briefcase"></i> Internship Experience</h4>
+                <div class="form-grid-2">
+                    <div class="input-group">
+                        <label>Number of Internships</label>
+                        <select class="input-field" id="internship_count" onchange="toggleInternshipDetails()">
+                            <option value="0">None</option>
+                            <option value="1">1 Internship</option>
+                            <option value="2">2 Internships</option>
+                            <option value="3_plus">3 or More</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Internship Type</label>
+                        <select class="input-field" id="internship_type">
+                            <option value="none">N/A</option>
+                            <option value="research">Research Based</option>
+                            <option value="startup">Startup</option>
+                            <option value="mnc_service">Service-Based MNC</option>
+                            <option value="mnc_product">Product-Based MNC</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Communication Skill (Self-Rated 1-10)</label>
+                    <input type="number" id="communication" class="input-field" min="1" max="10" placeholder="e.g. 7" required>
+                    <small>Honest assessment helps in HR round prediction.</small>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; font-size: 1.1rem; margin-top: 10px;">Analyze My Profile</button>
+            </form>
+
+            <!-- RESULT SECTION -->
+            <div id="resultSection" class="card" style="display: none; margin: 30px; border: none; box-shadow: none; text-align: center;">
+                <h2 style="margin-bottom: 10px;">Placement Analysis Report</h2>
+                <p style="color: var(--text-light); margin-bottom: 30px;" id="resultName">Candidate: --</p>
+                
+                <div class="progress-circle-wrapper" id="progressCircle">
+                    <span class="score-value" id="scoreValue">0%</span>
+                    <span class="score-label">Probability</span>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 id="companyTarget" style="color: var(--primary); font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;">Analyzing...</h3>
+                    <p style="color: var(--text-light); font-size: 0.95rem;">Based on current market trends for your profile.</p>
+                </div>
+
+                <div style="max-width: 500px; margin: 0 auto;">
+                    <div class="skill-bars">
+                        <div class="bar-container">
+                            <div class="bar-label"><span>Academic Strength</span> <span id="bar1Val">0%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" id="fill1"></div></div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label"><span>Technical Skills</span> <span id="bar2Val">0%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" id="fill2"></div></div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label"><span>Soft Skills & Exp</span> <span id="bar3Val">0%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" id="fill3"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; display: flex; gap: 15px; justify-content: center;">
+                    <button class="btn-primary" onclick="switchPage('roadmap')">View Action Plan</button>
+                    <button class="btn-outline" onclick="resetPrediction()">Calculate Again</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 3: RESUME OPTIMIZER -->
+    <section id="resume" class="page-section">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2 style="font-size: 2.5rem; color: var(--text-main);">AI Resume Optimizer</h2>
+            <p style="color: var(--text-light); font-size: 1.1rem;">Select your target role and upload your resume for a personalized audit.</p>
+        </div>
+
+        <div class="resume-grid">
+            <!-- LEFT: UPLOAD & SELECTOR -->
+            <div class="card">
+                <h3 style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-crosshairs" style="color: var(--primary);"></i> 1. Target & Upload
+                </h3>
+                
+                <div class="upload-zone" onclick="triggerFileInput()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p style="font-weight: 600;">Click to Upload PDF/Doc</p>
+                    <span style="font-size: 0.8rem; margin-top: 5px;">Max size: 5MB</span>
+                    <input type="file" id="resumeInput" hidden accept=".pdf,.doc,.docx" onchange="handleFileSelect(this)">
+                </div>
+
+                <div id="fileInfo" style="display: none;">
+                    <div class="file-display" style="display: flex; align-items: center; gap: 10px; padding: 12px; background: #f1f5f9; border-radius: 8px; margin-top: 15px; border: 1px solid #e2e8f0;">
+                        <i class="fa-solid fa-file-pdf" style="color: var(--danger); font-size: 1.5rem;"></i>
+                        <span id="fileName" style="font-size: 0.9rem; font-weight: 600;">resume.pdf</span>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 30px;">
+                    <label style="font-size: 1.1rem; font-weight: 700; margin-bottom: 10px;">Select Target Job Role</label>
+                    <select id="targetRole" class="input-field" style="padding: 15px;" onchange="updateRoleSelection()">
+                        <optgroup label="Core Development">
+                            <option value="frontend">Frontend Developer (React/Vue)</option>
+                            <option value="backend">Backend Developer (Node.js/Java)</option>
+                            <option value="fullstack">Full Stack Developer (MERN)</option>
+                        </optgroup>
+                        <optgroup label="Data & AI">
+                            <option value="data-scientist">Data Scientist</option>
+                            <option value="ml-engineer">ML Engineer</option>
+                            <option value="analyst">Data Analyst</option>
+                        </optgroup>
+                        <optgroup label="Cloud & DevOps">
+                            <option value="devops">DevOps Engineer</option>
+                            <option value="cloud-arch">Cloud Architect</option>
+                        </optgroup>
+                        <optgroup label="Cyber Security">
+                            <option value="sec-analyst">Security Analyst</option>
+                            <option value="pen-tester">Penetration Tester</option>
+                        </optgroup>
+                        <optgroup label="Product Management">
+                            <option value="pm">Product Manager</option>
+                            <option value="scrum">Scrum Master</option>
+                        </optgroup>
+                    </select>
+                    <div id="roleDescription" style="margin-top: 10px; font-size: 0.85rem; color: var(--text-light); background: #f8fafc; padding: 10px; border-radius: 6px;">
+                        Select a role above to see what skills you need.
+                    </div>
+                </div>
+
+                <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="analyzeResume()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Resume
+                </button>
+            </div>
+
+            <!-- RIGHT: REPORT -->
+            <div class="card" id="resumeResults" style="opacity: 0.5; pointer-events: none;">
+                <h3 style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fa-solid fa-clipboard-check" style="color: var(--success);"></i> Optimization Report</span>
+                    <span style="font-size: 0.9rem; color: var(--text-light);" id="scanStatus">Waiting for input...</span>
+                </h3>
+                
+                <div class="progress-circle-wrapper" id="resumeScoreCircle" style="width: 120px; height: 120px; margin-bottom: 20px;">
+                    <span class="score-value" id="resumeScoreVal" style="font-size: 2rem;">0%</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <p id="scoreText" style="font-weight: 700; font-size: 1.1rem; color: var(--text-main);">Upload to start</p>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+
+                <h4 style="margin-bottom: 15px; font-size: 1rem;">Metrics Breakdown</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; text-align: center;">
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: var(--text-light);">Keywords</div>
+                        <div id="scoreKeywords" style="font-weight: 700; color: var(--text-main);">--</div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: var(--text-light);">Structure</div>
+                        <div id="scoreStructure" style="font-weight: 700; color: var(--text-main);">--</div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: var(--text-light);">Impact</div>
+                        <div id="scoreImpact" style="font-weight: 700; color: var(--text-main);">--</div>
+                    </div>
+                </div>
+
+                <h4 style="margin-bottom: 15px; font-size: 1rem;">
+                    <i class="fa-solid fa-list-check" style="color: var(--warning); margin-right: 8px;"></i> Suggested Fixes
+                </h4>
+                <div id="suggestionList" style="max-height: 300px; overflow-y: auto;">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 4: ROADMAP & TRACKING -->
+    <section id="roadmap" class="page-section">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2 style="font-size: 2.5rem; color: var(--text-main);">Your Career Roadmap</h2>
+            <p style="color: var(--text-light); font-size:1.1rem;">Log your updates and follow our AI strategy to land your dream job.</p>
+        </div>
+
+        <!-- RESUME STRATEGY INTEGRATION -->
+        <div class="strategy-section">
+            <div class="roadmap-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                        <i class="fa-solid fa-file-contract" style="font-size: 1.8rem; color: var(--primary);"></i>
+                        <div>
+                            <h3 style="font-size: 1.5rem;">Resume Strategy</h3>
+                            <p style="color: var(--text-light); font-size: 0.9rem;">Based on your selection in the Resume Optimizer.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-outline" onclick="switchPage('resume')" style="font-size: 0.9rem;">Update Role Selection</button>
+            </div>
+
+            <div id="strategyContent" class="strategy-grid">
+                <!-- Default State -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-light); background: rgba(255,255,255,0.6); border-radius: 8px;">
+                    <i class="fa-solid fa-arrow-left" style="margin-bottom: 10px;"></i><br>
+                    Please select a Target Role in the <a href="#" onclick="switchPage('resume')" style="color: var(--primary); font-weight: 700;">Resume Optimizer</a> page to generate your specific strategy.
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <!-- LEFT: LOGGING FORM & ACTIONS -->
+            <div>
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 20px;"><i class="fa-solid fa-plus-circle" style="color: var(--primary);"></i> Log New Update</h3>
+                    <form onsubmit="addUpdate(event)">
+                        <div class="form-grid-2">
+                            <div class="input-group">
+                                <label>Date</label>
+                                <input type="date" id="updateDate" class="input-field" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Type</label>
+                                <select id="updateType" class="input-field">
+                                    <option value="Practical">Practical Project</option>
+                                    <option value="Theory">Theory / Concept</option>
+                                    <option value="Certification">Certification</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Skill / Topic</label>
+                            <input type="text" id="updateSkill" class="input-field" placeholder="e.g. Learned React Hooks" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Notes</label>
+                            <textarea id="updateNotes" class="input-field" rows="2" placeholder="Brief notes..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Add to Timeline</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-bottom: 15px;">Recommended Actions</h3>
+                    <div id="actionList">
+                        <div class="action-item">
+                            <input type="checkbox" class="checkbox-custom" checked disabled>
+                            <div>
+                                <strong>Log Daily Progress</strong><br>
+                                <span style="font-size: 0.85rem; color: var(--text-light);">Consistency is key for recruiters.</span>
+                            </div>
+                        </div>
+                        <div class="action-item">
+                            <input type="checkbox" class="checkbox-custom">
+                            <div>
+                                <strong>Mock Interviews</strong><br>
+                                <span style="font-size: 0.85rem; color: var(--text-light);">Practice technical rounds.</span>
+                            </div>
+                        </div>
+                        <div class="action-item">
+                            <input type="checkbox" class="checkbox-custom">
+                            <div>
+                                <strong>Update Resume Weekly</strong><br>
+                                <span style="font-size: 0.85rem; color: var(--text-light);">Keep tweaking your resume.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: TIMELINE -->
+            <div class="card">
+                <h3 style="margin-bottom: 20px;"><i class="fa-solid fa-clock-rotate-left" style="color: var(--text-light);"></i> Your Journey Timeline</h3>
+                <div class="timeline" id="timelineContainer">
+                    <!-- Initial Dummy Data -->
+                    <div class="timeline-item">
+                        <div class="update-card">
+                            <div class="timeline-date">Today</div>
+                            <strong>Started PlaceMate</strong>
+                            <p style="font-size: 0.9rem; color: var(--text-light);">Joined platform to track my goals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 5: ABOUT -->
+    <section id="about" class="page-section">
+        <div class="card" style="text-align: center; max-width: 900px; margin: 0 auto;">
+            <h2 style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 10px;">About PlaceMate</h2>
+            <p style="margin-bottom: 40px; color: var(--text-light); max-width: 700px; margin-left: auto; margin-right: auto;">
+                PlaceMate is an intelligent prediction tool built for engineering students. We utilize advanced machine learning algorithms (Random Forest & Logistic Regression logic) to analyze academic history, skill sets, and experience levels.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: left;">
+                <div>
+                    <div style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-building-user" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                        <h3 style="margin-bottom: 10px;">Service-Based Roadmap</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px;">Target: TCS, Infosys, Wipro, Accenture</p>
+                        <ul style="font-size: 0.9rem; line-height: 2;">
+                            <li>✓ Master Core CS Subjects (OS, DBMS, CN)</li>
+                            <li>✓ Clear all backlogs</li>
+                            <li>✓ Strong in one Programming Language (Java/C++)</li>
+                            <li>✓ Solve 100+ Simple/Medium DSA questions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-rocket" style="font-size: 2rem; color: var(--warning); margin-bottom: 15px;"></i>
+                        <h3 style="margin-bottom: 10px;">Product-Based Roadmap</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px;">Target: Amazon, Google, Flipkart, Microsoft</p>
+                        <ul style="font-size: 0.9rem; line-height: 2;">
+                            <li>✓ Advanced DSA (Graphs, DP, Advanced Arrays)</li>
+                            <li>✓ System Design Knowledge</li>
+                            <li>✓ High-Level CS Internals</li>
+                            <li>✓ Open Source contributions (GitHub)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3 style="margin-bottom: 15px; color: var(--primary);">PlaceMate AI</h3>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Your personal career coach. Predict, Analyze, and Get Placed.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">Quick Links</h4>
+                <ul style="line-height: 2; color: var(--text-light); font-size: 0.9rem;">
+                    <li onclick="switchPage('welcome')" style="cursor: pointer;">Home</li>
+                    <li onclick="switchPage('predict')" style="cursor: pointer;">Prediction Tool</li>
+                    <li onclick="switchPage('resume')" style="cursor: pointer;">Resume Optimizer</li>
+                    <li onclick="switchPage('roadmap')" style="cursor: pointer;">Track Progress</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">Socials</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; color: var(--text-light); font-size: 0.85rem;">
+            &copy; 2024 PlaceMate AI. Designed for Students.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- GLOBAL STATE ---
+        let selectedRole = null; 
+
+        // --- NAVIGATION SYSTEM ---
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show target page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update Nav visual
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // If switching to Roadmap, refresh strategy based on current role
+            if(pageId === 'roadmap') {
+                renderStrategySection();
+            }
+        }
+
+        // --- NOTIFICATION SYSTEM ---
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- PREDICTOR LOGIC ---
+        function toggleInternshipDetails() {
+            const count = document.getElementById('internship_count').value;
+            const typeSelect = document.getElementById('internship_type');
+            if(count === "0") {
+                typeSelect.value = "none";
+                typeSelect.disabled = true;
+            } else {
+                typeSelect.disabled = false;
+            }
+        }
+
+        function calculatePrediction(e) {
+            e.preventDefault();
+
+            // Get Values
+            const name = document.getElementById('fullName').value;
+            const cgpa = parseFloat(document.getElementById('cgpa').value);
+            const backlogs = parseInt(document.getElementById('backlogs').value) || 0;
+            const projects = parseInt(document.getElementById('projects').value) || 0;
+            const aptitude = parseInt(document.getElementById('aptitude').value) || 0;
+            const communication = parseInt(document.getElementById('communication').value) || 0;
+            const internshipCount = parseInt(document.getElementById('internship_count').value) || 0;
+            const internshipType = document.getElementById('internship_type').value;
+            const dept = document.getElementById('dept').value;
+            const skill = document.getElementById('skill').value;
+
+            // 1. Base Score Calculation
+            let score = 0;
+
+            // CGPA Weight (Max 40 points)
+            score += (cgpa * 4);
+
+            // Aptitude Weight (Max 15 points)
+            score += (aptitude * 0.15);
+
+            // Projects Weight (Max 10 points)
+            score += (projects * 2);
+
+            // Internship Weight (Max 20 points)
+            let internshipScore = 0;
+            if (internshipCount > 0) {
+                internshipScore += (internshipCount * 5); // Base points for count
+                if (internshipType === 'mnc_product') internshipScore += 10;
+                else if (internshipType === 'startup') internshipScore += 5;
+                else if (internshipType === 'research') internshipScore += 3;
+            }
+            score += internshipScore;
+
+            // Communication Weight (Max 10 points)
+            score += (communication * 1);
+
+            // Department Bonus
+            if (dept === 'cse_ai' || dept === 'cse_ml' || dept === 'cse_ds' || dept === 'cyber') score += 2;
+            else if (dept === 'mech' || dept === 'civil') score -= 2; // Harder market usually
+
+            // Penalty
+            score -= (backlogs * 4);
+
+            // Clamp
+            let finalScore = Math.floor(score);
+            if (finalScore > 99) finalScore = 99;
+            if (finalScore < 15) finalScore = 15;
+
+            // Update UI
+            document.getElementById('resultName').innerText = `Candidate: ${name}`;
+            document.getElementById('predictionForm').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+            
+            animateValue("scoreValue", 0, finalScore, 2000);
+            
+            // Target Text Logic
+            let targetText = "";
+            if (finalScore > 85) targetText = "High Probability: Product-Based Companies (FAANG, Unicorns)";
+            else if (finalScore > 70) targetText = "Good Probability: Service-Based MNCs & Growing Startups";
+            else if (backlogs > 0) targetText = "Priority: Clear Backlogs Immediately to Boost Profile";
+            else targetText = "Needs Improvement: Focus on Skill Building & Projects";
+            
+            document.getElementById('companyTarget').innerText = targetText;
+
+            // Bar Chart Calculation & Animation
+            let acadScore = (cgpa * 10) - (backlogs * 10);
+            if(acadScore < 0) acadScore = 20;
+            
+            // Tech Score (Aptitude + Projects + Skill choice bonus)
+            let techScore = aptitude + (projects * 5);
+            if(techScore > 100) techScore = 100;
+
+            // Soft Skill Score (Communication + Internship Type)
+            let softScore = (communication * 8) + (internshipType === 'mnc_product' ? 15 : 0);
+            if(softScore > 100) softScore = 100;
+
+            setTimeout(() => {
+                document.getElementById('fill1').style.width = acadScore + "%";
+                document.getElementById('bar1Val').innerText = acadScore + "%";
+                
+                document.getElementById('fill2').style.width = techScore + "%";
+                document.getElementById('bar2Val').innerText = techScore + "%";
+                
+                document.getElementById('fill3').style.width = softScore + "%";
+                document.getElementById('bar3Val').innerText = softScore + "%";
+
+                document.getElementById('progressCircle').style.background = `conic-gradient(var(--primary) ${finalScore * 3.6}deg, #e2e8f0 0deg)`;
+            }, 500);
+
+            showToast("Analysis Complete");
+        }
+
+        function resetPrediction() {
+            document.getElementById('predictionForm').reset();
+            document.getElementById('predictionForm').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'none';
+            toggleInternshipDetails(); // Reset state
+        }
+
+        // --- RESUME OPTIMIZER LOGIC ---
+        function triggerFileInput() { document.getElementById('resumeInput').click(); }
+        
+        function handleFileSelect(input) {
+            if (input.files && input.files[0]) {
+                document.getElementById('fileInfo').style.display = 'block';
+                document.getElementById('fileName').innerText = input.files[0].name;
+                showToast("File Selected Ready for Analysis");
+            }
+        }
+
+        function updateRoleSelection() {
+            const roleSelect = document.getElementById('targetRole');
+            const roleValue = roleSelect.value;
+            const descriptionBox = document.getElementById('roleDescription');
+            selectedRole = roleValue;
+
+            const descriptions = {
+                'frontend': "Focus on JavaScript (ES6+), HTML5, CSS3, React, and accessibility standards.",
+                'backend': "Focus on APIs, Databases (SQL/NoSQL), Server logic, and System Design basics.",
+                'fullstack': "Requires a blend of frontend and backend skills. Be prepared for full-stack interviews.",
+                'data-scientist': "Requires strong statistics, Python (Pandas/NumPy), SQL, and ML libraries.",
+                'ml-engineer': "Deep knowledge of Python, C++, model deployment, and scalability.",
+                'analyst': "Needs SQL, Excel/Sheets, Tableau/PowerBI, and visualization storytelling.",
+                'devops': "Linux, AWS/Azure, Jenkins, Docker, Kubernetes, and CI/CD pipelines.",
+                'cloud-arch': "Networking, load balancing, serverless, and cost optimization strategies.",
+                'sec-analyst': "Knowledge of cyber threats, vulnerability assessment tools, and risk management.",
+                'pen-tester': "Proficiency in Kali Linux, Metasploit, and reporting frameworks.",
+                'pm': "Agile methodologies, stakeholder management, prioritization, and roadmapping.",
+                'scrum': "Team dynamics, sprint planning, and servant leadership."
+            };
+
+            descriptionBox.innerText = descriptions[roleValue] || "Select a role above to see details.";
+        }
+
+        function analyzeResume() {
+            if(!selectedRole) {
+                showToast("Please select a Target Role first");
+                return;
+            }
+            
+            // FIX: Check if file is uploaded
+            const fileInput = document.getElementById('resumeInput');
+            if(fileInput.files.length === 0) {
+                showToast("Please upload a resume file first.");
+                return;
+            }
+
+            const resultsPanel = document.getElementById('resumeResults');
+            resultsPanel.style.opacity = '0.5';
+            resultsPanel.style.pointerEvents = 'none';
+            document.getElementById('scanStatus').innerText = "Scanning...";
+            document.getElementById('scoreText').innerText = "Analyzing...";
+            showToast("AI Analyzing Resume...");
+
+            setTimeout(() => {
+                const data = getMockAnalysis(selectedRole);
+                resultsPanel.style.opacity = '1';
+                resultsPanel.style.pointerEvents = 'auto';
+                document.getElementById('scanStatus').innerText = "Complete";
+                document.getElementById('scanStatus').style.color = "var(--success)";
+                document.getElementById('resumeScoreVal').innerText = data.totalScore + "%";
+                document.getElementById('resumeScoreCircle').style.background = `conic-gradient(var(--primary) ${data.totalScore * 3.6}deg, #e2e8f0 0deg)`;
+                document.getElementById('scoreText').innerText = data.statusText;
+                updateMetric('scoreKeywords', data.keywordsScore);
+                updateMetric('scoreStructure', data.structureScore);
+                updateMetric('scoreImpact', data.impactScore);
+                const list = document.getElementById('suggestionList');
+                list.innerHTML = ""; 
+                data.suggestions.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = `issue-card ${item.severity}`;
+                    div.innerHTML = `<div style="flex:1;"><div class="issue-header">${item.title}</div><p style="font-size: 0.85rem; color: #475569;">${item.desc}</p></div><button class="fix-btn" onclick="copyToClip('${item.fix}')">Copy Fix</button>`;
+                    list.appendChild(div);
+                });
+                showToast("Analysis Complete");
+            }, 1500);
+        }
+
+        function getMockAnalysis(role) {
+            const baseScore = Math.floor(Math.random() * (92 - 70) + 70); 
+            let issues = [];
+            
+            if(["frontend", "backend", "fullstack"].includes(role)) {
+                issues.push({ severity: "critical", title: "Missing Framework Keywords", desc: "ATS bots look for specific stacks.", fix: "Tech Stack: React, Redux, Node.js, Express, MongoDB" });
+                issues.push({ severity: "warning", title: "Project Impact Vague", desc: "Add metrics to projects.", fix: "Optimized database queries reducing load time by 40%." });
+            } else if(["data-scientist", "ml-engineer"].includes(role)) {
+                issues.push({ severity: "critical", title: "Lack of Quantifiable Metrics", desc: "Data roles need numbers.", fix: "Implemented ensemble models that improved accuracy from 80% to 95%." });
+            } else if(["devops", "cloud-arch"].includes(role)) {
+                issues.push({ severity: "warning", title: "No Cloud Infrastructure Details", desc: "Add specifics about CI/CD or Cloud.", fix: "Designed CI/CD pipeline using Jenkins and Docker." });
+            } else if(["sec-analyst", "pen-tester"].includes(role)) {
+                 issues.push({ severity: "critical", title: "Missing Security Certifications", desc: "Security roles value certs (CEH, OSCP).", fix: "Add 'Certified Ethical Hacker (CEH)' to Certifications section." });
+            } else {
+                issues.push({ severity: "warning", title: "Formatting Issues Detected", desc: "Use standard headings.", fix: "Ensure headers are bolded and consistent." });
+            }
+
+            return {
+                totalScore: baseScore,
+                statusText: baseScore > 80 ? "Strong Candidate" : "Needs Improvement",
+                keywordsScore: Math.floor(Math.random() * (90 - 50) + 50) + "%",
+                structureScore: Math.floor(Math.random() * (95 - 60) + 60) + "%",
+                impactScore: Math.floor(Math.random() * (80 - 40) + 40) + "%",
+                suggestions: issues
+            };
+        }
+
+        function updateMetric(id, score) {
+            const el = document.getElementById(id);
+            el.innerText = score;
+            const val = parseInt(score);
+            if(val < 60) el.style.color = "var(--danger)";
+            else if(val < 80) el.style.color = "var(--warning)";
+            else el.style.color = "var(--success)";
+        }
+
+        // --- ROADMAP INTEGRATION LOGIC (FIXED & EXPANDED) ---
+        function renderStrategySection() {
+            const container = document.getElementById('strategyContent');
+            if(!selectedRole) return;
+            
+            const strategies = {
+                'frontend': { title: "Frontend Developer Strategy", skills: ["HTML5 Semantic Tags", "CSS3 (Flexbox/Grid)", "JavaScript (ES6+)", "React/Vue.js", "State Management"], tasks: ["Build 3 responsive web projects", "Host portfolio on Netlify/Vercel", "Contribute to Open Source UI library"] },
+                'backend': { title: "Backend Developer Strategy", skills: ["Node.js or Python", "RESTful APIs", "SQL (Postgres/MySQL)", "Authentication (JWT)", "Caching (Redis)"], tasks: ["Build a CRUD API with auth", "Database optimization exercise", "Deploy API to AWS/Heroku"] },
+                'fullstack': { title: "Full Stack Strategy", skills: ["MERN Stack Mastery", "System Design Basics", "Git & GitHub", "Unit Testing"], tasks: ["Clone a major app", "Implement CI/CD pipeline", "Write API documentation"] },
+                'data-scientist': { title: "Data Scientist Strategy", skills: ["Python (Pandas, NumPy)", "Data Visualization", "Machine Learning", "Statistics", "SQL"], tasks: ["Kaggle Competition (Top 20%)", "Clean 3 real-world datasets", "Publish a case study blog"] },
+                'ml-engineer': { title: "ML Engineer Strategy", skills: ["Deep Learning (PyTorch/TF)", "Model Deployment", "Cloud for AI", "MLOps"], tasks: ["Deploy a model on AWS SageMaker", "Optimize a pre-trained model", "Build an end-to-end ML pipeline"] },
+                'analyst': { title: "Data Analyst Strategy", skills: ["SQL Mastery", "Tableau/PowerBI", "Excel Advanced", "Statistical Analysis"], tasks: ["Create 5 interactive dashboards", "Perform EDA on a public dataset", "Write SQL queries for LeetCode"] },
+                'devops': { title: "DevOps Engineer Strategy", skills: ["Linux Admin", "Docker & Kubernetes", "CI/CD", "Terraform", "AWS Fundamentals"], tasks: ["Containerize a 3-tier app", "Setup self-healing K8s cluster", "Automate infrastructure"] },
+                'cloud-arch': { title: "Cloud Architect Strategy", skills: ["AWS/Azure/GCP Services", "Networking", "Serverless Architecture", "Cost Management", "Security Best Practices"], tasks: ["Design a serverless architecture", "Migrate a monolith to microservices", "Optimize cloud costs"] },
+                'sec-analyst': { title: "Security Analyst Strategy", skills: ["Network Security", "Risk Assessment", "SIEM Tools", "Compliance"], tasks: ["Conduct a vulnerability assessment", "Create a security policy doc", "Set up a honeypot"] },
+                'pen-tester': { title: "Penetration Tester Strategy", skills: ["Kali Linux Tools", "Metasploit", "Burp Suite", "Network Protocols", "Reporting"], tasks: ["Hack a local network legally", "Write a pen-test report", "Set up a CTF lab"] },
+                'pm': { title: "Product Manager Strategy", skills: ["Agile/Scrum", "User Stories", "Roadmapping", "Data-Driven Decisions", "Stakeholder Mgmt"], tasks: ["Create a PRD for a fake app", "Conduct user interviews", "Build a product roadmap"] },
+                'scrum': { title: "Scrum Master Strategy", skills: ["Facilitation", "Conflict Resolution", "Sprint Planning", "Agile Metrics"], tasks: ["Run a mock sprint planning", "Facilitate a retrospective", "Create a Definition of Done"] },
+                'default': { title: "General Professional Strategy", skills: ["Communication", "Problem Solving", "Leadership"], tasks: ["Update LinkedIn", "Network with 5 professionals", "Attend 1 webinar/week"] }
+            };
+
+            const content = strategies[selectedRole] || strategies['default'];
+            container.innerHTML = `
+                <div class="strategy-item">
+                    <h4><i class="fa-solid fa-layer-group"></i> Key Skills</h4>
+                    <ul class="strategy-list">${content.skills.map(s => `<li>${s}</li>`).join('')}</ul>
+                </div>
+                <div class="strategy-item">
+                    <h4><i class="fa-solid fa-list-check"></i> Immediate Actions</h4>
+                    <ul class="strategy-list">${content.tasks.map(t => `<li>${t}</li>`).join('')}</ul>
+                </div>
+            `;
+        }
+
+        // --- TIMELINE LOGIC ---
+        function addUpdate(e) {
+            e.preventDefault();
+            const date = document.getElementById('updateDate').value;
+            const skill = document.getElementById('updateSkill').value;
+            const type = document.getElementById('updateType').value;
+            const notes = document.getElementById('updateNotes').value;
+            const container = document.getElementById('timelineContainer');
+            const newItem = document.createElement('div');
+            newItem.className = 'timeline-item';
+            newItem.innerHTML = `<div class="update-card"><div class="timeline-date">${date}</div><strong>${type}: ${skill}</strong><p style="font-size: 0.9rem; color: var(--text-light);">${notes}</p></div>`;
+            container.insertBefore(newItem, container.children[0]);
+            showToast("Update Added");
+            e.target.reset();
+            document.getElementById('updateDate').valueAsDate = new Date();
+        }
+
+        // --- UTILS ---
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerHTML = current + "%";
+                if (current == end) { clearInterval(timer); }
+            }, stepTime);
+        }
+        function copyToClip(text) {
+            navigator.clipboard.writeText(text);
+            showToast("Copied to Clipboard!");
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('updateDate').valueAsDate = new Date();
+            toggleInternshipDetails();
+        });
+    </script>
+</body>
+</html>
