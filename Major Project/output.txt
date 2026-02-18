@@ -1,0 +1,28 @@
+ ⏳ Starting GridSearch for Optimal Parameters (This might take 1-2 mins)...
+Fitting 5 folds for each of 32 candidates, totalling 160 fits
+/usr/local/lib/python3.12/dist-packages/xgboost/training.py:200: UserWarning: [08:11:12] WARNING: /__w/xgboost/xgboost/src/learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+/usr/local/lib/python3.12/dist-packages/xgboost/training.py:200: UserWarning: [08:11:12] WARNING: /__w/xgboost/xgboost/src/learner.cc:782: 
+Parameters: { "use_label_encoder" } are not used.
+
+  bst.update(dtrain, iteration=i, fobj=obj)
+
+==================================================
+🏆 BEST ACCURACY FOUND: 98.40%
+==================================================
+Best Parameters: {'classifier__colsample_bytree': 0.8, 'classifier__learning_rate': 0.05, 'classifier__max_depth': 4, 'classifier__n_estimators': 300, 'classifier__subsample': 0.8}
+
+📊 Final Hold-Out Test Accuracy: 96.00%
+
+--- Detailed Report ---
+              precision    recall  f1-score   support
+
+           0       1.00      0.68      0.81        25
+           1       0.96      1.00      0.98       175
+
+    accuracy                           0.96       200
+   macro avg       0.98      0.84      0.89       200
+weighted avg       0.96      0.96      0.96       200
+
