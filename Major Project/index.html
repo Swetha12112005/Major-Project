@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Placement System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Student Placement Prediction System</h1>
+
+<h2>Placement Prediction</h2>
+<form id="predictionForm">
+    <input type="number" id="cgpa" placeholder="CGPA" required>
+    <input type="number" id="internships" placeholder="Internships" required>
+    <input type="number" id="projects" placeholder="Projects" required>
+    <input type="number" id="aptitude_score" placeholder="Aptitude Score" required>
+    <input type="number" id="communication_score" placeholder="Communication Score" required>
+    <button type="submit">Predict</button>
+</form>
+
+<div id="result"></div>
+
+<hr>
+
+<h2>Resume Analyzer</h2>
+<form id="resumeForm" enctype="multipart/form-data">
+    <input type="file" id="resumeFile" required>
+    <button type="submit">Analyze Resume</button>
+</form>
+
+<div id="resumeResult"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
