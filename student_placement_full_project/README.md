@@ -1,6 +1,6 @@
 # 🎓 PlaceMate AI — Student Placement Prediction Suite
 
-> **Live Demo:** [https://intertropical-makai-explicitly.ngrok-free.dev](https://intertropical-makai-explicitly.ngrok-free.dev)
+> **Live Demo:**  https://placemate-ai.onrender.com/
 > *(Note: This is a temporary ngrok URL. Contact the developer if it's offline.)*
 
 An AI-powered career suite for engineering students — predict placement chances, optimize your resume for ATS, and track your career journey.
