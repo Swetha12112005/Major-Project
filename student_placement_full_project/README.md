@@ -71,25 +71,29 @@ student_placement_full_project/
 ---
 ## Deploy on Render
    This repository already includes render.yaml, so Render can deploy it as a web service and provide a stable public URL.
+   
   1. Push the latest code to GitHub:
-     '''
+
      git add .
      git commit -m "Prepare app for Render deployment"
      git push origin master
-     '''
+     
+     
   2. In Render:
      Create a new Web Service
      Select the GitHub repository placemate-ai
      Confirm the detected settings from render.yaml
      Deploy
+     
 3.After deployment, Render will give you a permanent URL similar to:
      https://placemate-ai.onrender.com
+     
 4.Optional:
    Add a custom domain in the Render service settings
 
 ## 👩‍💻 Developer
 
-**Swetha** — Engineering Student | AI/ML Enthusiast
+**Swetha** — Engineering Student | Data Science Enthusiast
 
 ---
 
