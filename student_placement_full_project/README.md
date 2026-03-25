@@ -1,7 +1,7 @@
 # 🎓 PlaceMate AI — Student Placement Prediction Suite
 
 > **Live Demo:**  https://placemate-ai.onrender.com/
-> *(Note: This is a temporary ngrok URL. Contact the developer if it's offline.)*
+> 
 
 An AI-powered career suite for engineering students — predict placement chances, optimize your resume for ATS, and track your career journey.
 
@@ -63,11 +63,29 @@ student_placement_full_project/
 ├── app.py                      # Flask student data API
 ├── data.json                   # Student dataset
 ├── xgboost_placement_model.pkl # Trained ML model
-├── preprocessor.pkl            # Data preprocessor
+├── preprocessor.pkl             # Data preprocessor
+ ---render.yaml        
 └── README.md
 ```
 
 ---
+## Deploy on Render
+   This repository already includes render.yaml, so Render can deploy it as a web service and provide a stable public URL.
+  1. Push the latest code to GitHub:
+     '''
+     git add .
+     git commit -m "Prepare app for Render deployment"
+     git push origin master
+     '''
+  2. In Render:
+     Create a new Web Service
+     Select the GitHub repository placemate-ai
+     Confirm the detected settings from render.yaml
+     Deploy
+3.After deployment, Render will give you a permanent URL similar to:
+     https://placemate-ai.onrender.com
+4.Optional:
+   Add a custom domain in the Render service settings
 
 ## 👩‍💻 Developer
 
