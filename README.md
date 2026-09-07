@@ -1,6 +1,6 @@
 PlaceMate AI — Student Placement Prediction Suite
 Live Demo: https://placemate-ai.onrender.com/
-
+Project Link:https://placemate-ai.onrender.com/
 An AI-powered career suite for engineering students — predict placement chances, optimize your resume for ATS, and track your career journey.
 
 🚀 Features
